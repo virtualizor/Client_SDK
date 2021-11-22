@@ -1,0 +1,19 @@
+{
+    "name": "yiiman/virtualizor",
+    "description": "Tiny SDK for virtualizor",
+    "type": "library",
+    "license": "Apache",
+    "autoload": {
+        "psr-4": {
+            "YiiMan\\VirtualizorSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "غلامرضا بهشتیان",
+            "email": "amintado@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
