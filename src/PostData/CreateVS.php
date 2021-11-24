@@ -5,40 +5,43 @@
 
 namespace YiiMan\VirtualizorSdk\PostData;
 
+use YiiMan\ApiStorm\Post\BasePostData;
+
 /**
  * Class CreateVS
  * @package YiiMan\VirtualizorSdk\PostData
- * @property  $serid
- * @property  integer $slave_server The slave server ID on which vps is to be created
- * @property  string $virt The Virtualization Technology has to be specified here, refer below table for valid values
- * @property  integer $uid Selects a unique ID of the user to which the vps will be assigned
- * @property  string $user_email Add User Email
- * @property  string $user_pass    Add a password
- * @property  string $fname Add user first name
- * @property  string $lname Add user last name
- * @property  integer $plid The plan ID for the VPS
- * @property  integer $osid The ID of the Operating System
- * @property  string $hostname The hostname the VPS
- * @property  string $rootpass The root password for the VPS
- * @property  array $ips The IP Address(s) for the VPS
- * @property  integer $num_ips6 The Number of Ipv6 Address given to the vps
- * @property  integer $num_ips6_subnet The Number of IPV6 Subnet to be assigned to the vps
- * @property  integer $stid Storage ID on which the VPS is to be created. (Not needed if using Primary storage)
- * @property  array $space The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
- * @property  integer $ram The ram value in MBs for the VPS
- * @property  integer $swapram The amount of SWAP for the VPS (Only for KVM, Xen, Proxmox KVM and XCP)
- * @property  integer $bandwidth The network bandwidth for the VPS: 0 (Zero) for unlimited
- * @property  integer $network_speed The network_speed for the VPS in KB/s
- * @property  integer $cpu The CPU weight for the VPS
- * @property  integer $cores The number of cores allotted to the VPS
- * @property  integer $cpu_percent The CPU Percent time for the VPS (Only for OpenVZ and Proxmox)
- * @property  bool $vnc Flag to enable vnc(0 or 1) (Only for KVM and Xen)
- * @property  string $vncpass The vnc password (Only for KVM and Xen)
- * @property  string $kvm_cache The type disk-cache mechanism can be writeback, writethrough, directsync or default (Only for KVM and Proxmox KVM)
- * @property  string $io_mode Sets the I/O policy for the VPS can be native/threads (Only for KVM)
- * @property  string $vnc_keymap Allows to select keymap can be 'en-us', 'de-ch', 'ar', 'da', 'et', 'fo', 'fr-be', 'fr-ch', 'hu', 'it', 'lt', 'mk', 'nl', 'no', 'pt', 'ru', 'sv', 'tr', 'de', 'en-gb', 'es', 'fi', 'fr', 'fr-ca', 'hr', 'is', 'ja', 'lv', 'nl-be', 'pl', 'pt-br', 'sl', 'th'
- * @property  string $nic_type The NIC type (default or e1000) (Only for KVM and Xen)
- * @property  integer $osreinstall_limi If you want to limit the number of OS re-installs per month.Eg. 0 - is unlimited
+ * @property  integer $node_select0      server id that you want creta new vps on that
+ * @property  string  $user_email0       Add User Email
+ * @property  integer $plid0             The plan ID for the VPS
+ * @property  integer $osid0             The ID of the Operating System
+ * @property  string  $hostname0         The hostname the VPS
+ * @property  string  $rootpass0         The root password for the VPS
+ * @property          $serid
+ * @property  integer $slave_server      The slave server ID on which vps is to be created
+ * @property  string  $virt              The Virtualization Technology has to be specified here, refer below table for valid values
+ * @property  integer $uid               Selects a unique ID of the user to which the vps will be assigned
+ * @property  string  $user_pass         Add a password
+ * @property  string  $fname             Add user first name
+ * @property  string  $lname             Add user last name
+ * @property  array   $ips               The IP Address(s) for the VPS
+ * @property  integer $num_ips6          The Number of Ipv6 Address given to the vps
+ * @property  integer $num_ips6_subnet   The Number of IPV6 Subnet to be assigned to the vps
+ * @property  integer $stid              Storage ID on which the VPS is to be created. (Not needed if using Primary storage)
+ * @property  array   $space             The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
+ * @property  integer $ram               The ram value in MBs for the VPS
+ * @property  integer $swapram           The amount of SWAP for the VPS (Only for KVM, Xen, Proxmox KVM and XCP)
+ * @property  integer $bandwidth         The network bandwidth for the VPS: 0 (Zero) for unlimited
+ * @property  integer $network_speed     The network_speed for the VPS in KB/s
+ * @property  integer $cpu               The CPU weight for the VPS
+ * @property  integer $cores             The number of cores allotted to the VPS
+ * @property  integer $cpu_percent       The CPU Percent time for the VPS (Only for OpenVZ and Proxmox)
+ * @property  bool    $vnc               Flag to enable vnc(0 or 1) (Only for KVM and Xen)
+ * @property  string  $vncpass           The vnc password (Only for KVM and Xen)
+ * @property  string  $kvm_cache         The type disk-cache mechanism can be writeback, writethrough, directsync or default (Only for KVM and Proxmox KVM)
+ * @property  string  $io_mode           Sets the I/O policy for the VPS can be native/threads (Only for KVM)
+ * @property  string  $vnc_keymap        Allows to select keymap can be 'en-us', 'de-ch', 'ar', 'da', 'et', 'fo', 'fr-be', 'fr-ch', 'hu', 'it', 'lt', 'mk', 'nl', 'no', 'pt', 'ru', 'sv', 'tr', 'de', 'en-gb', 'es', 'fi', 'fr', 'fr-ca', 'hr', 'is', 'ja', 'lv', 'nl-be', 'pl', 'pt-br', 'sl', 'th'
+ * @property  string  $nic_type          The NIC type (default or e1000) (Only for KVM and Xen)
+ * @property  integer $osreinstall_limit If you want to limit the number of OS re-installs per month.Eg. 0 - is unlimited
  */
 class CreateVS extends BasePostData
 {
@@ -88,15 +91,15 @@ class CreateVS extends BasePostData
     public int $slave_server;
     public string $virt;
     public int $uid = 0;
-    public string $user_email;
+    public string $user_email0;
     public string $user_pass;
     public string $fname;
     public string $lname;
-    public int $plid = 0;
-    public int $osid = 0;
-    public string $hostname;
-    public string $rootpass;
-    public array $ips;
+    public int $plid0;
+    public int $osid0;
+    public string $hostname0;
+    public string $rootpass0;
+    public array $ips = [];
     public int $num_ips6;
     public int $num_ips6_subnet;
     public int $stid;
@@ -110,66 +113,52 @@ class CreateVS extends BasePostData
     public int $cpu_percent = 100;
     public int $vnc = 1;
     public string $vncpass = 'test';
-    public int $kvm_cache = 0;
-    public int $io_mode = 0;
+    public string $kvm_cache = 'writeback';
+    public string $io_mode = 'native';
     public string $vnc_keymap = 'en-us';
     public string $nic_type = 'default';
     public int $osreinstall_limit = 0;
+    public $node_select0;
+    public $addvps = 1;
 
-
-    public function requiredFields(): array
-    {
-        return
-            [
-                'virt',
-                'user_email',
-                'user_pass',
-                'hostname',
-                'rootpass',
-                'osid',
-                'ips',
-                'space',
-                'ram',
-                'bandwidth',
-                'cores'
-            ];
-    }
 
     public function rules(): array
     {
         return
             [
-                'slave_server'     => 'integer',
-                'virt'             => 'string',
-                'uid'              => 'integer',
-                'user_email'       => 'string',
-                'user_pass'        => 'string',
-                'fname'            => 'string',
-                'lname'            => 'string',
-                'plid'             => 'integer',
-                'osid'             => 'integer',
-                'hostname'         => 'string',
-                'rootpass'         => 'string',
-                'ips'              => 'array',
-                'num_ips6'         => 'integer',
-                'num_ips6_subnet'  => 'integer',
-                'stid'             => 'integer',
-                'space'            => 'integer',
-                'ram'              => 'integer',
-                'swapram'          => 'integer',
-                'bandwidth'        => 'integer',
-                'network_speed'    => 'integer',
-                'cpu'              => 'integer',
-                'cores'            => 'integer',
-                'cpu_percent'      => 'integer',
-                'vnc'              => 'integer',
-                'vncpass'          => 'string',
-                'kvm_cache'        => 'string',
-                'io_mode'          => 'string',
-                'vnc_keymap'       => 'string',
-                'nic_type'         => 'string',
-                'osreinstall_limi' => 'integer',
+                'slave_server'      => 'integer',
+                'virt'              => 'string',
+                'uid'               => 'integer',
+                'user_email'        => 'string',
+                'user_pass'         => 'string',
+                'fname'             => 'string',
+                'lname'             => 'string',
+                'plid'              => 'integer',
+                'osid'              => 'integer',
+                'hostname'          => 'string',
+                'rootpass'          => 'string',
+                'ips'               => 'array',
+                'num_ips6'          => 'integer',
+                'num_ips6_subnet'   => 'integer',
+                'stid'              => 'integer',
+                'space'             => 'integer',
+                'ram'               => 'integer',
+                'swapram'           => 'integer',
+                'bandwidth'         => 'integer',
+                'network_speed'     => 'integer',
+                'cpu'               => 'integer',
+                'cores'             => 'integer',
+                'cpu_percent'       => 'integer',
+                'vnc'               => 'integer',
+                'vncpass'           => 'string',
+                'kvm_cache'         => 'string',
+                'io_mode'           => 'string',
+                'vnc_keymap'        => 'string',
+                'nic_type'          => 'string',
+                'osreinstall_limit' => 'integer',
+                'node_select'       => 'integer'
             ];
     }
+
 
 }

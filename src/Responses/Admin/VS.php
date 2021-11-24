@@ -5,10 +5,10 @@
 
 namespace YiiMan\VirtualizorSdk\Responses\Admin;
 
-/**
+
+use YiiMan\ApiStorm\Response\BaseResponse;/**
  * Class VS
  * @package YiiMan\VirtualizorSdk\Responses\Admin
- *
  * @property  $vpsid
  * @property  $vps_name
  * @property  $uuid
@@ -100,297 +100,105 @@ namespace YiiMan\VirtualizorSdk\Responses\Admin;
  * @property  $pid
  * @property  $type
  * @property  $os_distro
- *
  * @property array $stid
  * @property array $ips
  */
-class VS
+class VS extends BaseResponse
 {
-    public
-        $vpsid,
-        $vps_name,
-        $uuid,
-        $serid,
-        $time,
-        $edittime,
-        $virt,
-        $uid,
-        $plid,
-        $hostname,
-        $osid,
-        $os_name,
-        $iso,
-        $sec_iso,
-        $boot,
-        $space,
-        $inodes,
-        $ram,
-        $burst,
-        $swap,
-        $cpu,
-        $cores,
-        $cpupin,
-        $cpu_percent,
-        $bandwidth,
-        $network_speed,
-        $upload_speed,
-        $io,
-        $ubc,
-        $acpi,
-        $apic,
-        $pae,
-        $shadow,
-        $vnc,
-        $vncport,
-        $vnc_passwd,
-        $hvm,
-        $suspended,
-        $suspend_reason,
-        $nw_suspended,
-        $rescue,
-        $band_suspend,
-        $tuntap,
-        $ppp,
-        $ploop,
-        $dns_nameserver,
-        $osreinstall_limit,
-        $preferences,
-        $nic_type,
-        $vif_type,
-        $virtio,
-        $pv_on_hvm,
-        $disks,
-        $kvm_cache,
-        $io_mode,
-        $cpu_mode,
-        $total_iops_sec,
-        $read_bytes_sec,
-        $write_bytes_sec,
-        $kvm_vga,
-        $acceleration,
-        $vnc_keymap,
-        $routing,
-        $mg,
-        $used_bandwidth,
-        $cached_disk,
-        $webuzo,
-        $disable_ebtables,
-        $install_xentools,
-        $admin_managed,
-        $rdp,
-        $topology_sockets,
-        $topology_cores,
-        $topology_threads,
-        $mac,
-        $notes,
-        $disable_nw_config,
-        $locked,
-        $openvz_features,
-        $speed_cap,
-        $numa,
-        $bpid,
-        $bserid,
-        $timezone,
-        $ha,
-        $data,
-        $server_name,
-        $email,
-        $pid,
-        $type,
-        $os_distro;
 
+    public $vpsid = 'int';
+    public $vps_name = 'string';
+    public $uuid = '';
+    public $serid = '';
+    public $time = '';
+    public $edittime = '';
+    public $virt = '';
+    public $uid = 'int';
+    public $plid = 'int';
+    public $hostname = '';
+    public $osid = 'int';
+    public $os_name = '';
+    public $iso = '';
+    public $sec_iso = '';
+    public $boot = '';
+    public $space = 'float';
+    public $inodes = '';
+    public $ram = 'int';
+    public $burst = '';
+    public $swap = '';
+    public $cpu = 'int';
+    public $cores = 'int';
+    public $cpupin = 'int';
+    public $cpu_percent = 'float';
+    public $bandwidth = 'float';
+    public $network_speed = 'int';
+    public $upload_speed = 'int';
+    public $io = '';
+    public $ubc = 'serialize';
+    public $acpi = 'int';
+    public $apic = 'int';
+    public $pae = 'int';
+    public $shadow = 'int';
+    public $vnc = 'int';
+    public $vncport = 'int';
+    public $vnc_passwd = '';
+    public $hvm = 'int';
+    public $suspended = 'bool';
+    public $suspend_reason = '';
+    public $nw_suspended = '';
+    public $rescue = '';
+    public $band_suspend = '';
+    public $tuntap = '';
+    public $ppp = '';
+    public $ploop = '';
+    public $dns_nameserver = 'serialize';
+    public $osreinstall_limit = '';
+    public $preferences = '';
+    public $nic_type = '';
+    public $vif_type = '';
+    public $virtio = '';
+    public $pv_on_hvm = '';
+    public $disks = '';
+    public $kvm_cache = '';
+    public $io_mode = '';
+    public $cpu_mode = '';
+    public $total_iops_sec = '';
+    public $read_bytes_sec = '';
+    public $write_bytes_sec = '';
+    public $kvm_vga = '';
+    public $acceleration = '';
+    public $vnc_keymap = '';
+    public $routing = '';
+    public $mg = '';
+    public $used_bandwidth = '';
+    public $cached_disk = 'serialize';
+    public $webuzo = '';
+    public $disable_ebtables = '';
+    public $install_xentools = '';
+    public $admin_managed = '';
+    public $rdp = '';
+    public $topology_sockets = '';
+    public $topology_cores = '';
+    public $topology_threads = '';
+    public $mac = '';
+    public $notes = '';
+    public $disable_nw_config = '';
+    public $locked = '';
+    public $openvz_features = '';
+    public $speed_cap = '';
+    public $numa = '';
+    public $bpid = '';
+    public $bserid = '';
+    public $timezone = '';
+    public $ha = '';
+    public $data = 'json';
+    public $server_name = '';
+    public $email = '';
+    public $pid = '';
+    public $type = '';
+    public $os_distro = '';
 
     public $stid, $ips;
 
-    public function __construct(
-        $vpsid,
-        $vps_name,
-        $uuid,
-        $serid,
-        $time,
-        $edittime,
-        $virt,
-        $uid,
-        $plid,
-        $hostname,
-        $osid,
-        $os_name,
-        $iso,
-        $sec_iso,
-        $boot,
-        $space,
-        $inodes,
-        $ram,
-        $burst,
-        $swap,
-        $cpu,
-        $cores,
-        $cpupin,
-        $cpu_percent,
-        $bandwidth,
-        $network_speed,
-        $upload_speed,
-        $io,
-        $ubc,
-        $acpi,
-        $apic,
-        $pae,
-        $shadow,
-        $vnc,
-        $vncport,
-        $vnc_passwd,
-        $hvm,
-        $suspended,
-        $suspend_reason,
-        $nw_suspended,
-        $rescue,
-        $band_suspend,
-        $tuntap,
-        $ppp,
-        $ploop,
-        $dns_nameserver,
-        $osreinstall_limit,
-        $preferences,
-        $nic_type,
-        $vif_type,
-        $virtio,
-        $pv_on_hvm,
-        $disks,
-        $kvm_cache,
-        $io_mode,
-        $cpu_mode,
-        $total_iops_sec,
-        $read_bytes_sec,
-        $write_bytes_sec,
-        $kvm_vga,
-        $acceleration,
-        $vnc_keymap,
-        $routing,
-        $mg,
-        $used_bandwidth,
-        $cached_disk,
-        $webuzo,
-        $disable_ebtables,
-        $install_xentools,
-        $admin_managed,
-        $rdp,
-        $topology_sockets,
-        $topology_cores,
-        $topology_threads,
-        $mac,
-        $notes,
-        $disable_nw_config,
-        $locked,
-        $openvz_features,
-        $speed_cap,
-        $numa,
-        $bpid,
-        $bserid,
-        $timezone,
-        $ha,
-        $data,
-        $server_name,
-        $email,
-        $pid,
-        $type,
-        $os_distro,
-        $stid,
-        $ips
-    ) {
-        $this->vpsid = (int) $vpsid;
-        $this->vps_name = $vps_name;
-        $this->uuid = $uuid;
-        $this->serid = $serid;
-        $this->time = $time;
-        $this->edittime = $edittime;
-        $this->virt = $virt;
-        $this->uid = (int) $uid;
-        $this->plid = (int) $plid;
-        $this->hostname = $hostname;
-        $this->osid = (int) $osid;
-        $this->os_name = $os_name;
-        $this->iso = $iso;
-        $this->sec_iso = $sec_iso;
-        $this->boot = $boot;
-        $this->space = (float) $space;
-        $this->inodes = $inodes;
-        $this->ram = (int) $ram;
-        $this->burst = $burst;
-        $this->swap = $swap;
-        $this->cpu = (float) $cpu;
-        $this->cores = (int) $cores;
-        $this->cpupin = (int) $cpupin;
-        $this->cpu_percent = (float) $cpu_percent;
-        $this->bandwidth = (float) $bandwidth;
-        $this->network_speed = (int) $network_speed;
-        $this->upload_speed = (int) $upload_speed;
-        $this->io = $io;
-        $this->ubc = !empty($ubc) ? unserialize($ubc) : $ubc;
-        $this->acpi = (int) $acpi;
-        $this->apic = (int) $apic;
-        $this->pae = (int) $pae;
-        $this->shadow = (int) $shadow;
-        $this->vnc = (int) $vnc;
-        $this->vncport = (int) $vncport;
-        $this->vnc_passwd = $vnc_passwd;
-        $this->hvm = (int) $hvm;
-        $this->suspended = (bool) $suspended;
-        $this->suspend_reason = $suspend_reason;
-        $this->nw_suspended = $nw_suspended;
-        $this->rescue = $rescue;
-        $this->band_suspend = $band_suspend;
-        $this->tuntap = $tuntap;
-        $this->ppp = $ppp;
-        $this->ploop = $ploop;
-        $this->dns_nameserver = !empty($dns_nameserver) ? unserialize($dns_nameserver) : $dns_nameserver;
-        $this->osreinstall_limit = $osreinstall_limit;
-        $this->preferences = $preferences;
-        $this->nic_type = $nic_type;
-        $this->vif_type = $vif_type;
-        $this->virtio = $virtio;
-        $this->pv_on_hvm = $pv_on_hvm;
-        $this->disks = $disks;
-        $this->kvm_cache = $kvm_cache;
-        $this->io_mode = $io_mode;
-        $this->cpu_mode = $cpu_mode;
-        $this->total_iops_sec = $total_iops_sec;
-        $this->read_bytes_sec = $read_bytes_sec;
-        $this->write_bytes_sec = $write_bytes_sec;
-        $this->kvm_vga = $kvm_vga;
-        $this->acceleration = $acceleration;
-        $this->vnc_keymap = $vnc_keymap;
-        $this->routing = $routing;
-        $this->mg = $mg;
-        $this->used_bandwidth = $used_bandwidth;
-        $this->cached_disk = !empty($cached_disk) ? unserialize($cached_disk) : $cached_disk;
-        $this->webuzo = $webuzo;
-        $this->disable_ebtables = $disable_ebtables;
-        $this->install_xentools = $install_xentools;
-        $this->admin_managed = $admin_managed;
-        $this->rdp = $rdp;
-        $this->topology_sockets = $topology_sockets;
-        $this->topology_cores = $topology_cores;
-        $this->topology_threads = $topology_threads;
-        $this->mac = $mac;
-        $this->notes = $notes;
-        $this->disable_nw_config = $disable_nw_config;
-        $this->locked = $locked;
-        $this->openvz_features = $openvz_features;
-        $this->speed_cap = $speed_cap;
-        $this->numa = $numa;
-        $this->bpid = $bpid;
-        $this->bserid = $bserid;
-        $this->timezone = $timezone;
-        $this->ha = $ha;
-        $this->data = !empty($data) ? json_decode($data) : $data;
-        $this->server_name = $server_name;
-        $this->email = $email;
-        $this->pid = $pid;
-        $this->type = $type;
-        $this->os_distro = $os_distro;
-
-        $this->stid = $stid;
-        $this->ips = $ips;
-    }
 
 }

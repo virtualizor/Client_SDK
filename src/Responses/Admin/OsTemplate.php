@@ -5,10 +5,10 @@
 
 namespace YiiMan\VirtualizorSdk\Responses\Admin;
 
+
 /**
  * Class OsTemplate
  * @package YiiMan\VirtualizorSdk\Responses\Admin
- *
  * @property $osid
  * @property $type
  * @property $name
@@ -23,51 +23,20 @@ namespace YiiMan\VirtualizorSdk\Responses\Admin;
  * @property $distro
  * @property $Nvirt
  */
-class OsTemplate
+class OsTemplate extends \YiiMan\ApiStorm\Response\BaseResponse
 {
     public
-        $osid,
-        $type,
-        $name,
-        $filename,
-        $size,
-        $pygrub,
-        $drive,
-        $hvm,
-        $perf_ops,
-        $active,
-        $url,
-        $distro,
-        $Nvirt;
-
-    public function __construct(
-        $osid,
-        $type,
-        $name,
-        $filename,
-        $size,
-        $pygrub,
-        $drive,
-        $hvm,
-        $perf_ops,
-        $active,
-        $url,
-        $distro,
-        $Nvirt
-    ) {
-
-        $this->osid = $osid;
-        $this->type = $type;
-        $this->name = $name;
-        $this->filename = $filename;
-        $this->size = $size;
-        $this->pygrub = $pygrub;
-        $this->drive = $drive;
-        $this->hvm = $hvm;
-        $this->perf_ops = $perf_ops;
-        $this->active = $active;
-        $this->url = $url;
-        $this->distro = $distro;
-        $this->Nvirt = $Nvirt;
-    }
+        $osid = 'int',
+        $type = 'string',
+        $name = 'string',
+        $filename = 'string',
+        $size = 'int',
+        $pygrub = 'int',
+        $drive = 'string',
+        $hvm = 'int',
+        $perf_ops = 'int',
+        $active = 'bool',
+        $url = 'string',
+        $distro = 'string',
+        $Nvirt = 'string';
 }
