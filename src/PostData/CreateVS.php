@@ -10,38 +10,38 @@ use YiiMan\ApiStorm\Post\BasePostData;
 /**
  * Class CreateVS
  * @package YiiMan\VirtualizorSdk\PostData
- * @property  integer $node_select0      server id that you want creta new vps on that
- * @property  string  $user_email0       Add User Email
- * @property  integer $plid0             The plan ID for the VPS
- * @property  integer $osid0             The ID of the Operating System
- * @property  string  $hostname0         The hostname the VPS
- * @property  string  $rootpass0         The root password for the VPS
+ * @property  integer $node_select0       server id that you want creta new vps on that
+ * @property  string  $user_email0        Add User Email
+ * @property  integer $cores0             The number of cores allotted to the VPS
+ * @property  integer $plid0              The plan ID for the VPS
+ * @property  integer $osid0              The ID of the Operating System
+ * @property  string  $hostname0          The hostname the VPS
+ * @property  string  $rootpass0          The root password for the VPS
+ * @property  string  $virt0              The Virtualization Technology has to be specified here, refer below table for valid values
+ * @property  string  $user_pass0         Add a password
+ * @property  array   $ips0               The IP Address(s) for the VPS
+ * @property  array   $space0             The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
+ * @property  integer $ram0               The ram value in MBs for the VPS
+ * @property  integer $bandwidth0         The network bandwidth for the VPS: 0 (Zero) for unlimited
  * @property          $serid
- * @property  integer $slave_server      The slave server ID on which vps is to be created
- * @property  string  $virt              The Virtualization Technology has to be specified here, refer below table for valid values
- * @property  integer $uid               Selects a unique ID of the user to which the vps will be assigned
- * @property  string  $user_pass         Add a password
- * @property  string  $fname             Add user first name
- * @property  string  $lname             Add user last name
- * @property  array   $ips               The IP Address(s) for the VPS
- * @property  integer $num_ips6          The Number of Ipv6 Address given to the vps
- * @property  integer $num_ips6_subnet   The Number of IPV6 Subnet to be assigned to the vps
- * @property  integer $stid              Storage ID on which the VPS is to be created. (Not needed if using Primary storage)
- * @property  array   $space             The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
- * @property  integer $ram               The ram value in MBs for the VPS
- * @property  integer $swapram           The amount of SWAP for the VPS (Only for KVM, Xen, Proxmox KVM and XCP)
- * @property  integer $bandwidth         The network bandwidth for the VPS: 0 (Zero) for unlimited
- * @property  integer $network_speed     The network_speed for the VPS in KB/s
- * @property  integer $cpu               The CPU weight for the VPS
- * @property  integer $cores             The number of cores allotted to the VPS
- * @property  integer $cpu_percent       The CPU Percent time for the VPS (Only for OpenVZ and Proxmox)
- * @property  bool    $vnc               Flag to enable vnc(0 or 1) (Only for KVM and Xen)
- * @property  string  $vncpass           The vnc password (Only for KVM and Xen)
- * @property  string  $kvm_cache         The type disk-cache mechanism can be writeback, writethrough, directsync or default (Only for KVM and Proxmox KVM)
- * @property  string  $io_mode           Sets the I/O policy for the VPS can be native/threads (Only for KVM)
- * @property  string  $vnc_keymap        Allows to select keymap can be 'en-us', 'de-ch', 'ar', 'da', 'et', 'fo', 'fr-be', 'fr-ch', 'hu', 'it', 'lt', 'mk', 'nl', 'no', 'pt', 'ru', 'sv', 'tr', 'de', 'en-gb', 'es', 'fi', 'fr', 'fr-ca', 'hr', 'is', 'ja', 'lv', 'nl-be', 'pl', 'pt-br', 'sl', 'th'
- * @property  string  $nic_type          The NIC type (default or e1000) (Only for KVM and Xen)
- * @property  integer $osreinstall_limit If you want to limit the number of OS re-installs per month.Eg. 0 - is unlimited
+ * @property  integer $slave_server       The slave server ID on which vps is to be created
+ * @property  integer $uid                Selects a unique ID of the user to which the vps will be assigned
+ * @property  string  $fname              Add user first name
+ * @property  string  $lname              Add user last name
+ * @property  integer $num_ips6           The Number of Ipv6 Address given to the vps
+ * @property  integer $num_ips6_subnet    The Number of IPV6 Subnet to be assigned to the vps
+ * @property  integer $stid               Storage ID on which the VPS is to be created. (Not needed if using Primary storage)
+ * @property  integer $swapram            The amount of SWAP for the VPS (Only for KVM, Xen, Proxmox KVM and XCP)
+ * @property  integer $network_speed      The network_speed for the VPS in KB/s
+ * @property  integer $cpu                The CPU weight for the VPS
+ * @property  integer $cpu_percent        The CPU Percent time for the VPS (Only for OpenVZ and Proxmox)
+ * @property  bool    $vnc                Flag to enable vnc(0 or 1) (Only for KVM and Xen)
+ * @property  string  $vncpass            The vnc password (Only for KVM and Xen)
+ * @property  string  $kvm_cache          The type disk-cache mechanism can be writeback, writethrough, directsync or default (Only for KVM and Proxmox KVM)
+ * @property  string  $io_mode            Sets the I/O policy for the VPS can be native/threads (Only for KVM)
+ * @property  string  $vnc_keymap         Allows to select keymap can be 'en-us', 'de-ch', 'ar', 'da', 'et', 'fo', 'fr-be', 'fr-ch', 'hu', 'it', 'lt', 'mk', 'nl', 'no', 'pt', 'ru', 'sv', 'tr', 'de', 'en-gb', 'es', 'fi', 'fr', 'fr-ca', 'hr', 'is', 'ja', 'lv', 'nl-be', 'pl', 'pt-br', 'sl', 'th'
+ * @property  string  $nic_type           The NIC type (default or e1000) (Only for KVM and Xen)
+ * @property  integer $osreinstall_limit  If you want to limit the number of OS re-installs per month.Eg. 0 - is unlimited
  */
 class CreateVS extends BasePostData
 {
@@ -89,34 +89,34 @@ class CreateVS extends BasePostData
 
     public int $serid = 0;
     public int $slave_server;
-    public string $virt;
-    public int $uid = 0;
+    public string $virt0;
+    public int $uid;
     public string $user_email0;
-    public string $user_pass;
+    public string $user_pass0;
     public string $fname;
     public string $lname;
     public int $plid0;
     public int $osid0;
     public string $hostname0;
     public string $rootpass0;
-    public array $ips = [];
+    public array $ips0 = [];
     public int $num_ips6;
     public int $num_ips6_subnet;
     public int $stid;
-    public int $space = 10;
-    public int $ram = 512;
-    public int $swapram = 1024;
-    public int $bandwidth = 0;
-    public int $network_speed = 0;
-    public int $cpu = 1000;
-    public int $cores = 4;
-    public int $cpu_percent = 100;
-    public int $vnc = 1;
-    public string $vncpass = 'test';
-    public string $kvm_cache = 'writeback';
-    public string $io_mode = 'native';
-    public string $vnc_keymap = 'en-us';
-    public string $nic_type = 'default';
+    public int $space0;//GIG
+    public int $ram0;
+    public int $swapram;
+    public int $bandwidth0;
+    public int $network_speed;
+    public int $cpu;
+    public int $cores0;
+    public int $cpu_percent;
+    public int $vnc;
+    public string $vncpass;
+    public string $kvm_cache;
+    public string $io_mode;
+    public string $vnc_keymap;
+    public string $nic_type;
     public int $osreinstall_limit = 0;
     public $node_select0;
     public $addvps = 1;

@@ -10,17 +10,21 @@ use YiiMan\ApiStorm\Core\Connection;
 use YiiMan\ApiStorm\Core\Res;
 use YiiMan\ApiStorm\Post\BasePostData;
 use YiiMan\VirtualizorSdk\PostData\CreateVS;
+use YiiMan\VirtualizorSdk\PostData\EditUser;
 use YiiMan\VirtualizorSdk\Responses\Admin\AddVs;
+use YiiMan\VirtualizorSdk\Responses\Admin\DoneResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\Ipsresponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\ListVs;
+use YiiMan\VirtualizorSdk\Responses\Admin\Plans;
 use YiiMan\VirtualizorSdk\Responses\Admin\Server_list;
+use YiiMan\VirtualizorSdk\Responses\Admin\UserEdit;
 use YiiMan\VirtualizorSdk\Responses\Admin\VS;
 
 class VirtualizorAdmin
 {
-    private $key = '';
-    private $pass = '';
-    private $ip = '';
+    private $key = 'chykaaxaqiextynduamu6terpjwdruks';
+    private $pass = 't1hjdemtcigtfsewjebirnfknuhemeqy';
+    private $ip = '103.215.221.197';
     private $port = 4085;
     private $protocol = 'https';
 
@@ -254,10 +258,10 @@ class VirtualizorAdmin
     }
 
     /**
-     * @param  string        $path
-     * @param                $data
-     * @param  BasePostData  $servedData
-     * @param  array         $cookies
+     * @param  string              $path
+     * @param                      $data
+     * @param  BasePostData|array  $servedData
+     * @param  array               $cookies
      * @return Res
      */
     private function callStorm(string $path, $data = '', $servedData = null, $cookies = [])
@@ -281,7 +285,11 @@ class VirtualizorAdmin
         if (is_object($servedData)) {
             $arrayData = $servedData->serve();
         } else {
-            $arrayData = [];
+            if (empty($servedData)) {
+                $arrayData = [];
+            } else {
+                $arrayData = $servedData;
+            }
         }
 
         return $connection->call($path, [], $arrayData, $cookies);
@@ -593,10 +601,17 @@ class VirtualizorAdmin
         return $res;
     }
 
-    function edituser($post)
+    /**
+     * @param  UserEdit  $post
+     * @return Res
+     */
+    function edituser(EditUser $post, $uid)
     {
-        $path = 'index.php?act=edituser';
-        $res = $this->call($path, [], $post);
+        $path = 'index.php?act=edituser&uid='.$uid;
+        $res = $this->callStorm($path, [], $post);
+        if ($res->isSuccess()) {
+            return new UserEdit($res);
+        }
         return $res;
     }
 
@@ -790,10 +805,20 @@ class VirtualizorAdmin
 
     }
 
+    /**
+     * @param  int  $page
+     * @param  int  $reslen
+     * @return Res|Plans
+     */
     function plans($page = 1, $reslen = 50)
     {
         $path = 'index.php?act=plans&page='.$page.'&reslen='.$reslen;
-        $ret = $this->call($path);
+        $ret = $this->callStorm($path);
+        if ($ret->isSuccess()) {
+            return new Plans($ret);
+        } else {
+            return $ret;
+        }
         return $ret;
     }
 
@@ -965,13 +990,17 @@ class VirtualizorAdmin
      * Suspends a VM of a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       int 1 if the VM is ON, 0 if its OFF
+     * @return       Res 1 if the VM is ON, 0 if its OFF
      */
     function suspend($vid)
     {
         $path = 'index.php?act=vs&suspend='.(int) $vid;
-        $res = $this->call($path);
-        return $res;
+        $res = $this->callStorm($path);
+        if ($res->isSuccess()) {
+            $test = $res;
+        } else {
+            return $res;
+        }
     }
 
     /**
@@ -1012,6 +1041,34 @@ class VirtualizorAdmin
         $res = $this->call($path);
         return $res;
     }
+
+    function userSuspend($uid)
+    {
+        $path = 'index.php?act=users&page=1&reslen=3';
+        $res = $this->callStorm($path, "", ['suspend' => $uid]);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        }
+        return $res;
+    }
+
+    function userUnsuspend($uid)
+    {
+        $path = 'index.php?act=users&page=1&reslen=3';
+        $res = $this->callStorm($path, "", ['unsuspend' => $uid]);
+        $data = $res->getData();
+        if (!is_object($data)) {
+            $data = str_replace('Success !a:', 'a:', $data);
+            $data = unserialize($data);
+            $res->setData($data);
+        }
+
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        }
+        return $res;
+    }
+
 
     function users($page = 1, $reslen = 50)
     {

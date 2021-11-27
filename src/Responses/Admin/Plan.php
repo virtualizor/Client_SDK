@@ -11,16 +11,16 @@ namespace YiiMan\VirtualizorSdk\Responses\Admin;
  * @property  integer $plid
  * @property  string  $plan_name
  * @property  string  $virt
- * @property  string  $ips
- * @property  string  $ips6
- * @property  string  $ips6_subnet
- * @property  string  $ips_int
+ * @property  integer  $ips
+ * @property  integer  $ips6
+ * @property  integer  $ips6_subnet
+ * @property  integer  $ips_int
  * @property  float   $space
  * @property  string  $inodes
- * @property  string  $ram
+ * @property  integer  $ram
  * @property  string  $burst
  * @property  string  $swap
- * @property  string  $cpu
+ * @property  integer  $cpu
  * @property  string  $cores
  * @property  string  $cpu_percent
  * @property  string  $bandwidth
@@ -29,10 +29,10 @@ namespace YiiMan\VirtualizorSdk\Responses\Admin;
  * @property  string  $nic_type
  * @property  string  $io
  * @property  string  $virtio
- * @property  string  $ubc
+ * @property  object  $ubc
  * @property  string  $ploop
  * @property  string  $band_suspend
- * @property  string  $dns_nameserver
+ * @property  object  $dns_nameserver
  * @property  string  $ppp
  * @property  string  $tuntap
  * @property  string  $control_panel
@@ -65,12 +65,12 @@ namespace YiiMan\VirtualizorSdk\Responses\Admin;
  * @property  string  $topology_threads
  * @property  string  $disable_nw_config
  * @property  string  $rdp
- * @property  string  $openvz_features
+ * @property  object  $openvz_features
  * @property  string  $speed_cap
  * @property  string  $numa
  * @property  string  $bpid
  * @property  string  $install_xentools
- * @property  string  $ippoolid
+ * @property  object  $ippoolid
  * @property  string  $is_enabled
  * @property  string  $bus_driver
  * @property  string  $bus_driver_num
@@ -88,28 +88,28 @@ class Plan extends \YiiMan\ApiStorm\Response\BaseResponse
     public $plid = 'int';
     public $plan_name = "";
     public $virt = '';
-    public $ips = '';
-    public $ips6 = '';
-    public $ips6_subnet = '';
-    public $ips_int = '';
+    public $ips = 'int';
+    public $ips6 = 'int';
+    public $ips6_subnet = 'int';
+    public $ips_int = 'int';
     public $space = 'float';
     public $inodes = '';
-    public $ram = '';
+    public $ram = 'int';
     public $burst = '';
     public $swap = '';
-    public $cpu = '';
-    public $cores = '';
-    public $cpu_percent = '';
-    public $bandwidth = '';
+    public $cpu = 'int';
+    public $cores = 'int';
+    public $cpu_percent = 'float';
+    public $bandwidth = 'int';
     public $network_speed = '';
     public $upload_speed = '';
     public $nic_type = '';
     public $io = '';
     public $virtio = '';
-    public $ubc = '';
+    public $ubc = 'serialize';
     public $ploop = '';
     public $band_suspend = '';
-    public $dns_nameserver = '';
+    public $dns_nameserver = 'serialize';
     public $ppp = '';
     public $tuntap = '';
     public $control_panel = '';
@@ -124,7 +124,7 @@ class Plan extends \YiiMan\ApiStorm\Response\BaseResponse
     public $read_bytes_sec = '';
     public $write_bytes_sec = '';
     public $vnc_keymap = '';
-    public $osid = '';
+    public $osid = 'int';
     public $kvm_vga = '';
     public $acceleration = '';
     public $vif_type = '';
@@ -140,15 +140,15 @@ class Plan extends \YiiMan\ApiStorm\Response\BaseResponse
     public $topology_sockets = '';
     public $topology_cores = '';
     public $topology_threads = '';
-    public $disable_nw_config = '';
+    public $disable_nw_config = 'bool';
     public $rdp = '';
-    public $openvz_features = '';
+    public $openvz_features = 'serialize';
     public $speed_cap = '';
     public $numa = '';
     public $bpid = '';
     public $install_xentools = '';
-    public $ippoolid = '';
-    public $is_enabled = '';
+    public $ippoolid = 'serialize';
+    public $is_enabled = 'bool';
     public $bus_driver = '';
     public $bus_driver_num = '';
     public $webuzo_data = '';
