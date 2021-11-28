@@ -28,9 +28,9 @@ use YiiMan\VirtualizorSdk\Responses\Admin\VS;
 
 class VirtualizorAdmin
 {
-    private $key = 'chykaaxaqiextynduamu6terpjwdruks';
-    private $pass = 't1hjdemtcigtfsewjebirnfknuhemeqy';
-    private $ip = '103.215.221.197';
+    private $key = '';
+    private $pass = '';
+    private $ip = '';
     private $port = 4085;
     private $protocol = 'https';
 
@@ -45,12 +45,13 @@ class VirtualizorAdmin
      * @param  string  $ip    IP of the NODE
      * @return       NULL
      */
-    function Virtualizor_Admin_API($ip, $key, $pass, $port = 4085)
+    function Virtualizor_Admin_API($ip, $key, $pass, $port = 4085, $prot = 'https')
     {
         $this->key = $key;
         $this->pass = $pass;
         $this->ip = $ip;
         $this->port = $port;
+        $this->protocol = $prot;
         if ($port != 4085) {
             $this->protocol = 'http';
         }
@@ -625,10 +626,10 @@ class VirtualizorAdmin
     {
         $post->vpsid0 = $vpsID;
         $path = 'index.php?act=managevps&vpsid='.$vpsID;
-        $res=$this->callStorm($path,'',$post);
+        $res = $this->callStorm($path, '', $post);
         if ($res->isSuccess()) {
-            $ress=$res;
-        }else{
+            $ress = $res;
+        } else {
             return $res;
         }
     }
@@ -886,7 +887,7 @@ class VirtualizorAdmin
                 'show'  => 1,
                 'vpsid' => $vpsId
             ];
-        $ret = $this->callStorm($path, '',$post);
+        $ret = $this->callStorm($path, '', $post);
         if ($ret->isSuccess()) {
             return new Response($ret);
         } else {
