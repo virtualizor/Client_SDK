@@ -8,9 +8,9 @@ namespace YiiMan\VirtualizorSdk\PostData;
 /**
  * Class EditUser
  * @package YiiMan\VirtualizorSdk\PostData
- * @property integer $priority        This specifies if the user is a user(0) or admin(1) or cloud (2)
+ * @property integer $priority0        This specifies if the user is a user(0) or admin(1) or cloud (2)
  * @property string  $newpass         The password of the user
- * @property string  $newemail        The email of the user
+ * @property string  $newemail0        The email of the user
  * @property string  $fname           The first name of the user
  * @property string  $lname           The last name of the user
  * @property integer $dnsplan_id      The dnsplan ID for the user
@@ -41,9 +41,9 @@ class EditUser extends \YiiMan\ApiStorm\Post\BasePostData
     public $edituser=1;
     public
 
-        $priority,
+        $priority0=0,
         $newpass="",
-        $newemail,
+        $newemail0,
         $fname,
         $lname,
         $dnsplan_id,

@@ -11,13 +11,19 @@ use YiiMan\ApiStorm\Core\Res;
 use YiiMan\ApiStorm\Post\BasePostData;
 use YiiMan\VirtualizorSdk\PostData\CreateVS;
 use YiiMan\VirtualizorSdk\PostData\EditUser;
+use YiiMan\VirtualizorSdk\PostData\ManageVPS;
+use YiiMan\VirtualizorSdk\PostData\Rebuild;
 use YiiMan\VirtualizorSdk\Responses\Admin\AddVs;
 use YiiMan\VirtualizorSdk\Responses\Admin\DoneResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\Ipsresponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\ListVs;
 use YiiMan\VirtualizorSdk\Responses\Admin\Plans;
+use YiiMan\VirtualizorSdk\Responses\Admin\RebuildResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\Server_list;
+use YiiMan\VirtualizorSdk\Responses\Admin\StatusResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\UserEdit;
+use YiiMan\VirtualizorSdk\Responses\Admin\UsersList;
+use YiiMan\VirtualizorSdk\Responses\Admin\VPSStats\Response;
 use YiiMan\VirtualizorSdk\Responses\Admin\VS;
 
 class VirtualizorAdmin
@@ -615,6 +621,18 @@ class VirtualizorAdmin
         return $res;
     }
 
+    public function managevps(ManageVPS $post, int $vpsID)
+    {
+        $post->vpsid0 = $vpsID;
+        $path = 'index.php?act=managevps&vpsid='.$vpsID;
+        $res=$this->callStorm($path,'',$post);
+        if ($res->isSuccess()) {
+            $ress=$res;
+        }else{
+            return $res;
+        }
+    }
+
     /**
      * Create a VPS
      * @author       Pulkit Gupta
@@ -737,7 +755,7 @@ class VirtualizorAdmin
      * @param  int page number, if not specified then only 50 records are returned.
      * @return       ListVs|Res The ListVs class OR false on failure
      */
-    function listvs($page = 1, $reslen = 50)
+    function vps_list($page = 1, $reslen = 50)
     {
         $path = 'index.php?act=vs&page='.$page.'&reslen='.$reslen;
         $response = $this->callStorm($path);
@@ -857,15 +875,42 @@ class VirtualizorAdmin
     }
 
     /**
+     * @param $vpsId
+     * @return Res|Response
+     */
+    function stat($vpsId)
+    {
+        $path = 'index.php?act=vps_stats';
+        $post =
+            [
+                'show'  => 1,
+                'vpsid' => $vpsId
+            ];
+        $ret = $this->callStorm($path, '',$post);
+        if ($ret->isSuccess()) {
+            return new Response($ret);
+        } else {
+            return $ret;
+        }
+    }
+
+    /**
      * Rebuild a VPS
      * @author       Pulkit Gupta
-     * @param  array  $post  An array of DATA that should be posted
-     * @return       array The unserialized array on success OR false on failure
+     * @param  Rebuild  $post  An array of DATA that should be posted
+     * @param  integer  $vpsid
+     * @return Res|RebuildResponse The unserialized array on success OR false on failure
      */
-    function rebuild($post)
+    function rebuild(Rebuild $post, int $vpsid)
     {
         $path = 'index.php?act=rebuild';
-        return $this->call($path, '', $post);
+        $post->vpsid = $vpsid;
+        $ret = $this->callStorm($path, '', $post);
+        if ($ret->isSuccess()) {
+            return new RebuildResponse($ret);
+        } else {
+            return $ret;
+        }
     }
 
     /**
@@ -972,18 +1017,19 @@ class VirtualizorAdmin
     }
 
     /**
-     * Gives status of a Virtual Server
-     * @author       Pulkit Gupta
-     * @param  Array  $vids  array of IDs of VMs
-     * @return       Array Contains the status info of the VMs
+     * @param  array  $vids
+     * @return Res|StatusResponse
      */
     function status($vids)
     {
 
         // Make the Request
-        $res = $this->call('index.php?act=vs&vs_status='.implode(',', $vids));
-        return $res['status'];
-
+        $res = $this->callStorm('index.php?act=vs&vs_status='.implode(',', $vids));
+        if ($res->isSuccess()) {
+            return new StatusResponse($res);
+        } else {
+            return $res;
+        }
     }
 
     /**
@@ -1069,12 +1115,21 @@ class VirtualizorAdmin
         return $res;
     }
 
-
+    /**
+     * @param  int  $page
+     * @param  int  $reslen
+     * @return Res|UsersList
+     */
     function users($page = 1, $reslen = 50)
     {
         $path = 'index.php?act=users&page='.$page.'&reslen='.$reslen;
-        $res = $this->call($path);
-        return $res;
+        $res = $this->callStorm($path);
+        if ($res->isSuccess()) {
+            return new UsersList($res);
+        } else {
+            return $res;
+        }
+
     }
 
     function vnc($post)
@@ -1098,12 +1153,6 @@ class VirtualizorAdmin
         return $res;
     }
 
-    function vs($page = 1, $reslen = 50)
-    {
-        $path = 'index.php?act=vs&page='.$page.'&reslen='.$reslen;
-        $res = $this->call($path);
-        return $res;
-    }
 
     function vsbandwidth()
     {

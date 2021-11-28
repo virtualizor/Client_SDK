@@ -12,17 +12,17 @@ use YiiMan\ApiStorm\Post\BasePostData;
  * @package YiiMan\VirtualizorSdk\PostData
  * @property  integer $node_select0       server id that you want creta new vps on that
  * @property  string  $user_email0        Add User Email
- * @property  integer $cores0             The number of cores allotted to the VPS
+ * @property  integer $cores              The number of cores allotted to the VPS
  * @property  integer $plid0              The plan ID for the VPS
  * @property  integer $osid0              The ID of the Operating System
  * @property  string  $hostname0          The hostname the VPS
  * @property  string  $rootpass0          The root password for the VPS
  * @property  string  $virt0              The Virtualization Technology has to be specified here, refer below table for valid values
- * @property  string  $user_pass0         Add a password
- * @property  array   $ips0               The IP Address(s) for the VPS
- * @property  array   $space0             The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
- * @property  integer $ram0               The ram value in MBs for the VPS
- * @property  integer $bandwidth0         The network bandwidth for the VPS: 0 (Zero) for unlimited
+ * @property  string  $user_pass          Add a password
+ * @property  array   $ips                The IP Address(s) for the VPS
+ * @property  array   $space              The disk space for the VPS. In case of Multiple Disk you can specify the array as given in the example. Otherwise just value for single disk VPS is enough
+ * @property  integer $ram                The ram value in MBs for the VPS
+ * @property  integer $bandwidth          The network bandwidth for the VPS: 0 (Zero) for unlimited
  * @property          $serid
  * @property  integer $slave_server       The slave server ID on which vps is to be created
  * @property  integer $uid                Selects a unique ID of the user to which the vps will be assigned
@@ -92,24 +92,24 @@ class CreateVS extends BasePostData
     public string $virt0;
     public int $uid;
     public string $user_email0;
-    public string $user_pass0;
+    public string $user_pass;
     public string $fname;
     public string $lname;
     public int $plid0;
     public int $osid0;
     public string $hostname0;
     public string $rootpass0;
-    public array $ips0 = [];
+    public array $ips;
     public int $num_ips6;
     public int $num_ips6_subnet;
     public int $stid;
-    public int $space0;//GIG
-    public int $ram0;
+    public int $space;//GIG
+    public int $ram;
     public int $swapram;
-    public int $bandwidth0;
+    public int $bandwidth;
     public int $network_speed;
     public int $cpu;
-    public int $cores0;
+    public int $cores;
     public int $cpu_percent;
     public int $vnc;
     public string $vncpass;
@@ -117,7 +117,7 @@ class CreateVS extends BasePostData
     public string $io_mode;
     public string $vnc_keymap;
     public string $nic_type;
-    public int $osreinstall_limit = 0;
+    public int $osreinstall_limit;
     public $node_select0;
     public $addvps = 1;
 
@@ -156,7 +156,8 @@ class CreateVS extends BasePostData
                 'vnc_keymap'        => 'string',
                 'nic_type'          => 'string',
                 'osreinstall_limit' => 'integer',
-                'node_select'       => 'integer'
+                'node_select'       => 'integer',
+                'addvps'            => 'integer'
             ];
     }
 
