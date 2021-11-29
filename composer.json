@@ -2,7 +2,7 @@
   "name": "yiiman/virtualizor",
   "description": "Tiny SDK for virtualizor",
   "type": "library",
-  "license": "Apache",
+  "license": "Apache-2.0",
   "autoload": {
     "psr-4": {
       "YiiMan\\VirtualizorSdk\\": "src/"
