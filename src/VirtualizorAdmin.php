@@ -17,6 +17,7 @@ use YiiMan\VirtualizorSdk\Responses\Admin\AddVs;
 use YiiMan\VirtualizorSdk\Responses\Admin\DoneResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\Ipsresponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\ListVs;
+use YiiMan\VirtualizorSdk\Responses\Admin\OsTemplates;
 use YiiMan\VirtualizorSdk\Responses\Admin\Plans;
 use YiiMan\VirtualizorSdk\Responses\Admin\RebuildResponse;
 use YiiMan\VirtualizorSdk\Responses\Admin\Server_list;
@@ -805,11 +806,20 @@ class VirtualizorAdmin
         return $ret;
     }
 
+    /**
+     * @param  int  $page
+     * @param  int  $reslen
+     * @return OsTemplates|Res
+     */
     function ostemplates($page = 1, $reslen = 50)
     {
         $path = 'index.php?act=ostemplates&page='.$page.'&reslen='.$reslen;
-        $ret = $this->call($path);
-        return $ret;
+        $ret = $this->callStorm($path);
+        if($ret->isSuccess()){
+            return new OsTemplates($ret);
+        }else{
+            return $ret;
+        }
     }
 
     function performance()

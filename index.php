@@ -31,7 +31,7 @@ include 'vendor/autoload.php';
         $_ENV['SERVER_PORT'],
         $_ENV['SERVER_PROTOCOL']
     );
-    const NEW_LINE = "\n\n\n\n\n";
+    define('NEW_LINE',"\n\n\n\n\n") ;
 }
 // </ Initialize SDK >
 
@@ -48,6 +48,7 @@ if ($u->isSuccess()) {
     if ($servers->isSuccess()) {
         $plans = $virtualizor->plans();//classified
         if ($plans->isSuccess()) {
+            $osTemplates=$virtualizor->ostemplates()->oslist[0];
             $sv = new CreateVS();
             $sv->virt0 = $sv::VIRTUALIZOR_TYPE_kvm;
             $sv->user_email0 = $userEmail;
