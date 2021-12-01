@@ -12,34 +12,41 @@ use YiiMan\VirtualizorSdk\VirtualizorAdmin;
 
 include 'vendor/autoload.php';
 
-
-
-// < Parameters >
+// < Load .env data >
 {
-    $serverIP='127.0.0.1';
-    $serverPort=4085;
-    $serverProtocol='https';
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
+// </ Load .env data >
 
-    $serverKey='Get from side menu >Configuration>server info';
-    $serverKeyPass='Get from side menu >Configuration>server info';
-    $visualizor = new VirtualizorAdmin();
-    $visualizor->Virtualizor_Admin_API($serverIP,$serverKey,$serverKeyPass,$serverPort,$serverProtocol);
+
+// < Initialize SDK >
+{
+    $virtualizor = new VirtualizorAdmin();
+    $virtualizor->Virtualizor_Admin_API
+    (
+        $_ENV['SERVER_IP'],
+        $_ENV['SERVER_KEY'],
+        $_ENV['SERVER_PASS'],
+        $_ENV['SERVER_PORT'],
+        $_ENV['SERVER_PROTOCOL']
+    );
     const NEW_LINE = "\n\n\n\n\n";
 }
-// </ Parameters >
+// </ Initialize SDK >
 
 
 echo 'Started API test';
-$u = $visualizor->users();
+$u = $virtualizor->users();
 if ($u->isSuccess()) {
     $u = $u->users[0];
     $userID = $u->uid;
     $userEmail = $u->email;
 
     //create
-    $servers = $visualizor->servers();//classified
+    $servers = $virtualizor->servers();//classified
     if ($servers->isSuccess()) {
-        $plans = $visualizor->plans();//classified
+        $plans = $virtualizor->plans();//classified
         if ($plans->isSuccess()) {
             $sv = new CreateVS();
             $sv->virt0 = $sv::VIRTUALIZOR_TYPE_kvm;
@@ -55,7 +62,7 @@ if ($u->isSuccess()) {
             // < Create New VPS after validate data >
             {
                 if ($sv->validate()) {
-                    $created = $visualizor->addvs($sv, []);//classified
+                    $created = $virtualizor->addvs($sv, []);//classified
                     echo 'Create new VPS was '.($created->isSuccess() ? 'Success' : 'not success because:'.$created->getError()->status_title).NEW_LINE;
                 }
             }
@@ -64,7 +71,7 @@ if ($u->isSuccess()) {
 
         }
 
-        $vpsList = $visualizor->vps_list();//classified
+        $vpsList = $virtualizor->vps_list();//classified
         if ($vpsList->isSuccess()) {
             $vpsID = $vpsList->vs[0]->vpsid;
             // < Edit User >
@@ -73,7 +80,7 @@ if ($u->isSuccess()) {
                 $editPost->fname = "YiiMan".uniqid();
                 $editPost->newemail0 = 'test@gmail.com';
                 if ($editPost->validate()) {
-                    $edit = $visualizor->edituser($editPost, $userID);//classified
+                    $edit = $virtualizor->edituser($editPost, $userID);//classified
                     echo 'Edit user was '.($edit->isSuccess() ? 'Success' : 'not success because:'.$edit->getError()->status_title).NEW_LINE;
 
                 } else {
@@ -84,24 +91,24 @@ if ($u->isSuccess()) {
 
             if (!empty($servers)) {
                 //suspend
-                $suspend = $visualizor->userSuspend($userID);//classified
+                $suspend = $virtualizor->userSuspend($userID);//classified
                 echo 'user Suspend was '.($suspend->isSuccess() ? 'Success' : 'not success because:'.$suspend->getError()->status_title).NEW_LINE;
 
 
                 //unsuspend
-                $unsuspend = $visualizor->userUnsuspend($userID);//classified
+                $unsuspend = $virtualizor->userUnsuspend($userID);//classified
                 echo 'user UnSuspend was '.($unsuspend->isSuccess() ? 'Success' : 'not success because:'.$unsuspend->getError()->status_title).NEW_LINE;
 
                 //stop
-                $stopped = $visualizor->stop($vpsID);
+                $stopped = $virtualizor->stop($vpsID);
 
                 //start
-                $start = $visualizor->start($vpsID);
+                $start = $virtualizor->start($vpsID);
 
                 //restart
 
                 $sid = $servers->servers[0]->serid;
-                $restart = $visualizor->restart($vpsID);
+                $restart = $virtualizor->restart($vpsID);
 
 
                 //reinstall|rebuild
@@ -109,12 +116,12 @@ if ($u->isSuccess()) {
 
                 $rebuild = new Rebuild();
                 $rebuild->osid = 870;
-                $rebuild = $visualizor->rebuild($rebuild, $vpsID);//classified
+                $rebuild = $virtualizor->rebuild($rebuild, $vpsID);//classified
                 echo 'VPS rebuild was '.($rebuild->isSuccess() ? 'Success' : 'not success because:'.$rebuild->getError()->status_title).NEW_LINE;
 
 
                 //checkStatus
-                $checkStatus = $visualizor->status([$vpsID]);//classified
+                $checkStatus = $virtualizor->status([$vpsID]);//classified
                 if (!$checkStatus->isSuccess()) {
                     echo 'VPS stats has error:<'.$checkStatus->getError()->status_title.'>('.$checkStatus->getError()->status_description.')'.NEW_LINE;
                 } else {
@@ -124,7 +131,7 @@ if ($u->isSuccess()) {
 
 
                 //checkUsage
-                $checkUsage = $visualizor->stat($vpsID);
+                $checkUsage = $virtualizor->stat($vpsID);
                 if (!$checkUsage->isSuccess()) {
                     echo 'VPS Usage has error:<'.$checkUsage->getError()->status_title.'>('.$checkUsage->getError()->status_description.')'.NEW_LINE;
                 } else {
@@ -139,13 +146,13 @@ if ($u->isSuccess()) {
                 //reset_password
                 $manage = new ManageVPS();
                 $manage->rootpass = 'amidikukuhkuh';
-                $resetPassword = $visualizor->managevps($manage, $vpsID);
+                $resetPassword = $virtualizor->managevps($manage, $vpsID);
 
                 //get_service_details
 
 
                 //terminate
-                $deleted = $visualizor->delete_vs($vpsID);
+                $deleted = $virtualizor->delete_vs($vpsID);
 
 
             }

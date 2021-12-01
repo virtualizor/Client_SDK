@@ -22,6 +22,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "yiiman/apistorm": "dev-main"
+    "yiiman/apistorm": "dev-main",
+    "vlucas/phpdotenv": "5.4.x-dev"
   }
 }
