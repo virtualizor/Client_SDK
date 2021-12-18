@@ -158,7 +158,7 @@ class VS extends BaseResponse
     public $vif_type = '';
     public $virtio = '';
     public $pv_on_hvm = '';
-    public $disks = '';
+    public $disks = 'classArray:YiiMan\VirtualizorSdk\Responses\Admin\Disk';
     public $kvm_cache = '';
     public $io_mode = '';
     public $cpu_mode = '';

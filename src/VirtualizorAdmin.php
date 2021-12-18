@@ -623,13 +623,18 @@ class VirtualizorAdmin
         return $res;
     }
 
+    /**
+     * @param  ManageVPS  $post
+     * @param  int        $vpsID
+     * @return Res|\YiiMan\VirtualizorSdk\Responses\Admin\ManageVps
+     */
     public function managevps(ManageVPS $post, int $vpsID)
     {
         $post->vpsid0 = $vpsID;
         $path = 'index.php?act=managevps&vpsid='.$vpsID;
         $res = $this->callStorm($path, '', $post);
         if ($res->isSuccess()) {
-            $ress = $res;
+            return new \YiiMan\VirtualizorSdk\Responses\Admin\ManageVps($res);
         } else {
             return $res;
         }
