@@ -820,9 +820,9 @@ class VirtualizorAdmin
     {
         $path = 'index.php?act=ostemplates&page='.$page.'&reslen='.$reslen;
         $ret = $this->callStorm($path);
-        if($ret->isSuccess()){
+        if ($ret->isSuccess()) {
             return new OsTemplates($ret);
-        }else{
+        } else {
             return $ret;
         }
     }
@@ -933,13 +933,17 @@ class VirtualizorAdmin
      * RESTART a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       bool TRUE on success or FALSE on failure
+     * @return Res|DoneResponse
      */
     function restart($vid)
     {
         // Make the Request
-        $res = $this->call('index.php?act=vs&action=restart&serid=0&vpsid='.(int) $vid);
-        return $res;
+        $res = $this->callStorm('index.php?act=vs&action=restart&serid=0&vpsid='.(int) $vid);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        } else {
+            return $res;
+        }
     }
 
     function restartservices($post)
@@ -1010,26 +1014,36 @@ class VirtualizorAdmin
      * START a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       bool TRUE on success or FALSE on failure
+     * @return Res|DoneResponse
      */
     function start($vid)
     {
 
-        $res = $this->call('index.php?act=vs&action=start&serid=0&vpsid='.(int) $vid);
-        return $res;
+        $res = $this->callStorm('index.php?act=vs&action=start&serid=0&vpsid='.(int) $vid);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        } else {
+            return $res;
+        }
+
     }
 
     /**
      * STOP a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       bool TRUE on success or FALSE on failure
+     * @return Res|DoneResponse
      */
     function stop($vid)
     {
         // Make the Request
-        $res = $this->call('index.php?act=vs&action=stop&serid=0&vpsid='.(int) $vid);
-        return $res;
+        $res = $this->callStorm('index.php?act=vs&action=stop&serid=0&vpsid='.(int) $vid);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        } else {
+            return $res;
+        }
+
     }
 
     /**
