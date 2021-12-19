@@ -541,13 +541,17 @@ class VirtualizorAdmin
      * Delete a VPS
      * @author       Pulkit Gupta
      * @param  int  $vid  An array of DATA that should be posted
-     * @return       boolean 1 on success OR 0 on failure
+     * @return Res|DoneResponse
      */
     function delete_vs(int $vid)
     {
         $path = 'index.php?act=vs&delete='.(int) $vid;
-        $res = $this->call($path);
-        return $res['done'];
+        $res = $this->callStorm($path);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        } else {
+            return $res;
+        }
     }
 
     /**
