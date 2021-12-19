@@ -89,6 +89,7 @@ class ManageVPS extends \YiiMan\ApiStorm\Post\BasePostData
     public $topology_sockets;
     public $topology_cores;
     public $topology_threads;
+    public $editvps=1;
 
     /**
      * @inheritDoc
