@@ -857,7 +857,6 @@ class VirtualizorAdmin
         } else {
             return $ret;
         }
-        return $ret;
     }
 
     /**
