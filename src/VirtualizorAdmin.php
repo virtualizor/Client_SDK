@@ -1070,14 +1070,14 @@ class VirtualizorAdmin
      * Suspends a VM of a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       Res 1 if the VM is ON, 0 if its OFF
+     * @return Res|DoneResponse
      */
     function suspend($vid)
     {
         $path = 'index.php?act=vs&suspend='.(int) $vid;
         $res = $this->callStorm($path);
         if ($res->isSuccess()) {
-            $test = $res;
+            return new DoneResponse($res);
         } else {
             return $res;
         }
@@ -1087,13 +1087,17 @@ class VirtualizorAdmin
      * Unsuspends a VM of a Virtual Server
      * @author       Pulkit Gupta
      * @param  int  $vid  The VMs ID
-     * @return       int 1 if the VM is ON, 0 if its OFF
+     * @return Res|DoneResponse
      */
     function unsuspend($vid)
     {
         $path = 'index.php?act=vs&unsuspend='.(int) $vid;
-        $res = $this->call($path);
-        return $res;
+        $res = $this->callStorm($path);
+        if ($res->isSuccess()) {
+            return new DoneResponse($res);
+        } else {
+            return $res;
+        }
     }
 
     function tools()
