@@ -23,7 +23,8 @@ class Rebuild extends \YiiMan\ApiStorm\Post\BasePostData
         $newpass0,
         $conf0,
         $format_primary,
-        $eu_send_rebuild_email;
+        $eu_send_rebuild_email,
+        $reos = 1;
 
     /**
      * @inheritDoc
@@ -38,6 +39,7 @@ class Rebuild extends \YiiMan\ApiStorm\Post\BasePostData
                 'conf'                  => 'string',
                 'format_primary'        => 'bool',
                 'eu_send_rebuild_email' => 'bool',
+                'reos'                  => 'int',
             ];
     }
 }
